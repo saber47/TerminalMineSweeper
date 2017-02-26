@@ -159,20 +159,20 @@ void Game::Mark(int i, int j) {
 void Game::Flip(int i, int j) {
 	if (data[i][j] == 0 && board[i][j][0]!=' ') {
 		total--;
-		board[i][j] = "   ";
+		board[i][j] = "   ";	
+		if (i > 0 && data[i-1][j]!=9 && board[i - 1][j] != "   ") Flip(i - 1, j);
+		if (i < dimX - 1 && data[i+1][j] != 9 && board[i + 1][j] != "   ") Flip(i + 1, j);
+		if (j > 0 && data[i][j-1] != 9 && board[i][j - 1] != "   ") Flip(i, j - 1);
+		if (j < dimY - 1 && data[i][j + 1] != 9 && board[i][j + 1] != "   ") Flip(i, j + 1);
+		if (i > 0 && j > 0 && data[i-1][j-1] != 9 && board[i - 1][j - 1] != "   ") Flip(i - 1, j - 1);
+		if (i > 0 && j < dimY - 1 && data[i-1][j+1] != 9 && board[i - 1][j + 1] != "   ") Flip(i - 1, j + 1);
+		if (i < dimX - 1 && j > 0 && data[i+1][j-1] != 9 && board[i + 1][j - 1] != "   ") Flip(i + 1, j - 1);
+		if (i < dimX - 1 && j < dimY - 1 && data[i+1][j+1] != 9 && board[i + 1][j + 1] != "   ") Flip(i + 1, j + 1);
 	}
-	else if (board[i][j][1] == ' ') {
+	else if (board[i][j] == "[ ]") {
 		total--;
 		board[i][j][1] = '0' + data[i][j];
 	}
-	if (i > 0 && data[i-1][j]==0 && board[i - 1][j] != "   ") Flip(i - 1, j);
-	if (i < dimX - 1 && data[i+1][j] ==0 && board[i + 1][j] != "   ") Flip(i + 1, j);
-	if (j > 0 && data[i][j-1] ==0 && board[i][j - 1] != "   ") Flip(i, j - 1);
-	if (j < dimY - 1 && data[i][j + 1] == 0 && board[i][j + 1] != "   ") Flip(i, j + 1);
-	if (i > 0 && j > 0 && data[i-1][j-1] == 0 && board[i - 1][j - 1] != "   ") Flip(i - 1, j - 1);
-	if (i > 0 && j < dimY - 1 && data[i-1][j+1] == 0 && board[i - 1][j + 1] != "   ") Flip(i - 1, j + 1);
-	if (i < dimX - 1 && j > 0 && data[i+1][j-1] == 0 && board[i + 1][j - 1] != "   ") Flip(i + 1, j - 1);
-	if (i < dimX - 1 && j < dimY - 1 && data[i+1][j+1] == 0 && board[i + 1][j + 1] != "   ") Flip(i + 1, j + 1);
 }
 
 void Game::Play() {
