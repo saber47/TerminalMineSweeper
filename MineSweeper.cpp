@@ -14,16 +14,6 @@ int main()
 		Game game;
 		game.Play();
 		cout << endl;
-		/*
-		cout << "Play again? [y/n]";
-		string in;
-		while (true) {
-			getline(cin, in);
-			if (in == "y") break;
-			if (in == "n") exit(EXIT_SUCCESS);
-			cout << "Please enter 'y' or 'n':\n";
-		}
-		*/
 	}
     return 0;
 }

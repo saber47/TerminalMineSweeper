@@ -182,7 +182,7 @@ void Game::Play() {
 		int i=0, j=0;
 		char move = '\0';
 		while (true) {
-			debug(data);
+			//debug(data); //Uncomment if you want to see what the data looks like;
 			cout << "Total number of mines: " << mineN << endl;
 			cout << "'r i j' -- reveal tile (i,j)\n";
 			cout << "'f i j' -- Flag/clear tile (i,j)\n";
