@@ -44,6 +44,7 @@ Game::Game() {
 	cout << "[E] - Easy: 8 Mines\n";
 	cout << "[M] - Medium: 20 Mines\n";
 	cout << "[H] - Hard: 40 Mines\n";
+	cout << "[C] - Custom Game\n";
 	cout << "[Q] - Quit game\n";
 	cout << "[In]: ";
 	bool loop = true;
@@ -75,7 +76,33 @@ Game::Game() {
 			dimY = 16;
 			cout << "\nPlaying Hard mode\n";
 			break;
+		case 'c':
+		case 'C':
+			loop = false;
+			cout << "Please specify 'dimX[1-30] dimY[1-30] mineN[>1]'\n";
+			int i, j, n;
+			while (true) {
+				while (!(cin >> i >> j >> n)) {
+					cout << "Please specify 'dimX dimY mineN\n";
+				}
+				cin.ignore();
+				if (i < 1 || i > 30 || j < 1 || j > 30) {
+					cout << "Please limit dimension within 30x30\n";
+					continue;
+				}
+				if (n < 1 || n > i*j) {
+					cout << "Wrong number of mines\n";
+					continue;
+				}
+				dimX = i;
+				dimY = j;
+				mineN = n;
+				cout << "\nPlaying Custom mode with " << dimX << "x" << dimY << " board and " << mineN << " mines\n";
+				break;
+			}
+			break;
 		case 'q':
+		case 'Q':
 			cout << "Quiting game\n";
 			Quit();
 			return;
@@ -186,6 +213,7 @@ void Game::Play() {
 			cout << "Total number of mines: " << mineN << endl;
 			cout << "'r i j' -- reveal tile (i,j)\n";
 			cout << "'f i j' -- Flag/clear tile (i,j)\n";
+			cout << "'m' -- back to menu\n";
 			cout << "'q' -- quit game\n";
 			cout << "[In]: ";
 			string instr;
@@ -195,11 +223,11 @@ void Game::Play() {
 				PrintBoard();
 				continue;
 			}
-			if (move != 'r' && move != 'f' && move != 'q') {
+			if (move != 'r' && move != 'f' && move != 'q' && move != 'm') {
 				PrintBoard();
 				continue;
 			}
-			if (move == 'q') break;
+			if (move == 'q' || move == 'm') break;
 			if (!(iss >> i >> j)) {
 				PrintBoard();
 				continue;
@@ -230,8 +258,9 @@ void Game::Play() {
 			else Flip(i, j);
 		}
 		else if (move == 'f') Mark(i, j);
+		else if (move == 'm') break;
 		else Quit();
 		PrintBoard();
 	}
-	return Win();
+	if (total == mineN) return Win();
 }
